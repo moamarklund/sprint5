@@ -14,9 +14,10 @@ public class Creature{
     } 
 
     //Metoder 
-    public void talk(){ 
-	System.out.print("not implemented yet"); 
-    } 
+    void talk(Avatar avatar){ 
+	System.out.println("not implemented yet"); 
+    }
+ 
 }
 	
     
