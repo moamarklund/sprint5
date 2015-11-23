@@ -7,18 +7,47 @@ public class Teacher extends Creature{
 	super(course); 
     } 
 
-/*
     //Metoder 
-    //talk 
-    //är lärare bunden till någon av avatarens kurser? 
-    //
-Om man går in i ett rum där det finns en lärare som är knuten till en kurs som är i studentens lista över oavklarade kurser är det 75% chans att läraren ställer en fråga på kursen. Denna fråga är en flervalsfråga (3 alternativ). Om man svarar rätt får man så många poäng som kursen avser; om man svarar fel händer ingenting.
+    void talk(Avatar avatar){ 
+	List<Course> list = avatar.getUnfinishedCourses();
+    //if oavklarad kurs- 75% chans för fråga, flervalsfråga med tre alternativ, om bok två alternativ 
+	if(searchListForName(list) && percent(75)); 
+	//   int questionToBeAsked = generateRandomNumber1to3();
+	    //if ej har kursbok 
+	    //if har kursbok
+    //om rätt svar lägg till coursen i finishedCourse listan, ta bort ur unfinishedCourse och lägg till HP
+	
+	List<Course> list2 = avatar.getFinishedCourses();
+    //if avklarad kurs- 50% chans för fråga,flervalsfråga med tre alternativ,om bok två alternativ 
+	if(searchListForName(list2) && percent(50));
+    //om fel svar lägg till kursen i unfinishedcourses, ta bort ur finishedCourses och ta bort HP
 
-Om läraren istället skulle vara knuten till en avklarad kurs är det 50% chans att denne ställer en flervalsfråga (3 alternativ). Svarar man fel läggs kursen tillbaka i listan över oavslutade kurser och kursens HP försvinner från studentens HP.
+    //if ej avklarad/oavklarad kurs 
+	//then enroll dvs lägg till i unfinishedCourses
+	//IO hantering??? enroll + kursens namn
+    } 
 
-Vid flervalsfrågor har man en fördel om man har kursboken. Då försvinner ett av de felaktiga alternativen.
+	/*   public boolean checkBookName(Avatar avatar){
+	if(avatar.getBook().getName().equals(this.course.getBook().getName())) return true; 
+	else return false;
+	}*/
 
-    //enroll 
-Om läraren är knuten till en kurs som inte finns i någon av studentens listor kan man välja att registrera sig på kursen. Detta görs med "enroll" och kursens namn.
-*/ 
+    public boolean searchListForName(List<Course> list){ 
+	Iterator<Course> iterator = list.iterator(); 
+	while(iterator.hasNext()){ 
+	    if(iterator.next().getName().equals(this.course.getName())){ 
+		return true; 
+	    } 
+	} 
+    return false; 
+    }
+
+	
+    public boolean percent(int between0and100){ 
+	Random random = new Random(); 
+	int randomNumber = random.nextInt(100);
+	if(randomNumber < between0and100) return true; 
+	else return false;
+    } 
+    
 }
