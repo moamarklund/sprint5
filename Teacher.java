@@ -27,7 +27,7 @@ public class Teacher extends Creature{
 	//IO hantering??? enroll + kursens namn
     } 
 
-	/*   public boolean checkBookName(Avatar avatar){
+	/*   public boolean checkBookName(Avatar avatar){x
 	if(avatar.getBook().getName().equals(this.course.getBook().getName())) return true; 
 	else return false;
 	}*/

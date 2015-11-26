@@ -18,9 +18,21 @@ public class Avatar {
 	return unfinishedCourses; 
     } 
 
-    public List<Course> getFinishedCourses(){ 
+    public List<Course> getFinishedCourses(){
 	return finishedCourses; 
     }
+
+    public void moveFinishedCourse(Course finishedCourse){
+	finishedCourses.add(finishedCourse);
+	unfinishedCourses.remove(finishedCourse);
+	HP + finishedCourse.getHP();
+    }
+
+    public void listBackpack(){
+	backpack.inventory();
+    }
+
+    
     
     //  public boolean checkBackpack(Books book){ 
     // }

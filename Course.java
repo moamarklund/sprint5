@@ -27,6 +27,10 @@ public class Course{
     public String getName(){ 
 	return this.name; 
     }
+
+    public int getHP(){
+	return this.HP;
+    }
 }
     
     
