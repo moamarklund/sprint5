@@ -1,14 +1,13 @@
-d    public class Keys extends Objects {
-	private boolean used;
+public class Keys extends Objects {
 
-	public Keys(String name, int weight){
-	    super(name, 1);
-	    this.used = false;
-	   
-	}
+    private boolean used;
 
-	public void unlock(){
-	    //Choose door to unlock
-	    used = true; 
-	}
+    public Keys(String name){
+	super(name,1);
+	this.used = false; 
+    } 
+
+    public void setKey(boolean set){
+	used = set; 
     }
+}

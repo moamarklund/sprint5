@@ -9,14 +9,16 @@ public class Course{
     private final ArrayList<String> questionAndAnswers1; 
     private final ArrayList<String> questionAndAnswers2;
     private final ArrayList<String> questionAndAnswers3;
+    private boolean rightAnswer;
     
     //Konstruktorer
     public Course(String name, ArrayList<String> questionAndAnswers1, ArrayList<String> questionAndAnswers2, ArrayList<String> questionAndAnswers3, int HP){ 
 	this.HP = HP; 
 	this.name = name; 
-	this.questionAndAnswers1 = questionAndAnswers1; //nu referar listorna till samma punkt, är det bra eller? förvirringen är total
+	this.questionAndAnswers1 = questionAndAnswers1; 
 	this.questionAndAnswers2 = questionAndAnswers2; 
-	this.questionAndAnswers3 = questionAndAnswers3; 
+	this.questionAndAnswers3 = questionAndAnswers3;
+	this.rightAnswer = false;
     }
 
     public Course(String name, ArrayList<String> questionAndAnswers1, ArrayList<String> questionAndAnswers2, ArrayList<String> questionAndAnswers3){ 
@@ -27,7 +29,15 @@ public class Course{
 	     10);
     } 
     
-    //Metoder 
+    //Metoder  
+    public void setRightAnswer(boolean setBool){ 
+	this.rightAnswer = setBool; 
+    } 
+
+    public boolean getRightAnswer(){ 
+	return this.rightAnswer; 
+    }
+
     public String getName(){ 
 	return this.name; 
     } 
@@ -40,10 +50,6 @@ public class Course{
 	if(choice == 1) return this.questionAndAnswers1; 
 	if(choice == 2) return this.questionAndAnswers2; 
 	else return this.questionAndAnswers3; 
-    }
-
-    public int getHP(){
-	return this.HP;
     }
 }
     

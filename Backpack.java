@@ -39,11 +39,35 @@ public class Backpack {
     public void drop(Objects object){
 	weight -= object.getWeight();
 	objectlist.remove(object);
-	totalObjects--;
- 
-        
+	totalObjects--;   
     }
     
+    public boolean checkCourse(Course c){ 
+	Iterator<Objects> iterator = objectlist.iterator(); 
+	while(iterator.hasNext()){ 
+	    if(iterator.next() instanceof Books){
+		if(((Books) iterator.next()).getCourseName().equals(c.getName())){ 
+		    return true; 
+		}
+	    } 
+	} 
+	return false; 
+    } 
+
+    public Books removeBookForCourse(Course c){ 
+	Iterator<Objects> iterator = objectlist.iterator(); 
+	Books book = new Books("","",0,0,c);//endast för att detta inte kan va i loopen
+	while(iterator.hasNext()){ 
+	    if(iterator.next() instanceof Books){
+		if(((Books) iterator.next()).getCourseName().equals(c.getName())){ 
+		    book =  ((Books) iterator.next());
+		    break;
+		}
+	    } 
+	} 
+	drop(book);
+	return book;
+    }
 	
     public void inventory(){
 	int i = 1;
@@ -58,7 +82,7 @@ public class Backpack {
 	  
 	  System.out.println("==================");
     }
-
+    
     
 	
 public static void main(String [] args){

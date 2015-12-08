@@ -8,41 +8,58 @@ public class Teacher extends Creature{
     } 
 
     //Metoder 
-    void talk(Avatar avatar){ 
+    public void enroll(Avatar avatar, String course_name){ 
+	if(course_name == this.course.getName()){ 
+	    List<Course> list = avatar.getUnfinishedCourses();
+	    list.add(this.course);
+	} 
+	else System.out.print("I don't teach that course, enroll failed");
+    } 
+
+    public void talk(Avatar avatar){ 
 	List<Course> list1 = avatar.getUnfinishedCourses();
-	List<Course> list2 = avatar.getFinishedCourses();
+	List<Course> list2 = avatar.getFinishedCourses(); 
+
 	//if ej avklarad/oavklarad kurs 
 	if(!(searchListForName(list1) && searchListForName(list2))){ 
-	    System.out.print("Do you wish to enroll the course? If so, answer enroll + coursename else no"); 
+	    System.out.print("Do you wish to enroll the course? If so, answer enroll " + this.course + "else no"); 
 	    String nameOfCourse = this.course.getName();
 	    String answer = readInput("enroll " + nameOfCourse, "no");
 	    if(answer == "enroll" + nameOfCourse){
-		//then enroll dvs lägg till i unfinishedCourses
-		list1.add(this.course);
-	    }
+		enroll(avatar,nameOfCourse);
+	    } 
+	    //else felmeddelande?
 	}
 
-	//if oavklarad kurs- 75% chans för fråga, flervalsfråga med tre alternativ, om bok två alternativ 
+	//if oavklarad kurs- 75% chans för fråga och en student inte inte gett rätt svar, flervalsfråga med tre alternativ, om bok två alternativ 
 	if(searchListForName(list1)){
-	    if(percent(75)){ 
+	    if(percent(75) && !(this.course.getRightAnswer())){ 
 		boolean rightAnswer = askQuestions(avatar);
 	    
 		//om rätt svar lägg till coursen i finishedCourse listan, ta bort ur unfinishedCourse och lägg till HP
 		if(rightAnswer){ 
+		    System.out.print("Your answer is right!!!");
 		    boolean success = removeAndAdd(list1, list2);
 		    int HP = this.course.getHP(); 
 		    int avatarHP = avatar.getHP(); 
 		    avatarHP += HP;
-		    if(!success){ 
-			System.out.print("Something went wrong"); 
-		    } 
+		    assert(!success);
 		} 
-	    }
+	    } 
+	    if(this.course.getRightAnswer()){ 
+		System.out.print("I see a student gave you the right answer... You know that's cheating! But it's ok for this time");
+		boolean success = removeAndAdd(list1, list2);
+		int HP = this.course.getHP(); 
+		int avatarHP = avatar.getHP(); 
+		avatarHP += HP;
+		assert(!success); 
+	    } 
+		
 	} 
 
-	//if avklarad kurs- 50% chans för fråga,flervalsfråga med tre alternativ,om bok två alternativ 
-	else {//(searchListForName(list2) is true
-	    if(percent(50)){
+	//if avklarad kurs- 50% chans för fråga och student inte inte gett rätt svar,flervalsfråga med tre alternativ,om bok två alternativ 
+	else if(searchListForName(list2)){
+	    if(percent(50) && !(this.course.getRightAnswer())){
 		boolean rightAnswer = askQuestions(avatar);
 		//om fel svar lägg till kursen i unfinishedcourses, ta bort ur finishedCourses och ta bort HP
 		if(!rightAnswer){ 
@@ -50,19 +67,15 @@ public class Teacher extends Creature{
 		    int HP = this.course.getHP(); 
 		    int avatarHP = avatar.getHP(); 
 		    avatarHP -= HP;
-		    if(!success){ 
-			System.out.print("Something went wrong"); 
-		    } 
-		}
+		    assert(!success);
+		} 
+	    } 
+	    if(this.course.getRightAnswer()) { 
+		System.out.print("I see a student gave you the right answer... You know that's cheating! But it's ok for this time");
+		this.course.setRightAnswer(false);
 	    }
-	}
+	} 	    
     } 
-
-
-	/*   public boolean checkBookName(Avatar avatar){x
-	if(avatar.getBook().getName().equals(this.course.getBook().getName())) return true; 
-	else return false;
-	}*/
 
     public boolean removeAndAdd(List<Course> removeElementFromList, List<Course> addElementToList){ 
 	boolean removeSuccess = removeElementFromList.remove(this.course); 
@@ -130,7 +143,7 @@ public class Teacher extends Creature{
 
     public int generateRandomNumber1to2(){ 
 	Random random = new Random(); 
-        int randomNumber =  random.nextInt(2);//the 2 is exclusive but inclusive 0
+	int randomNumber =  random.nextInt(2);//the 2 is exclusive but inclusive 0
 	return randomNumber + 1;
     }
 
@@ -191,10 +204,9 @@ public class Teacher extends Creature{
 	
     public int generateRandomNumber1to3(){
 	Random random = new Random(); 
-        int randomNumber =  random.nextInt(3);//the 3 is exclusive but inclusive 0
+	int randomNumber =  random.nextInt(3);//the 3 is exclusive but inclusive 0
 	return randomNumber + 1;
     } 
-
 
     public boolean searchListForName(List<Course> list){ 
 	Iterator<Course> iterator = list.iterator(); 
@@ -203,7 +215,7 @@ public class Teacher extends Creature{
 		return true; 
 	    } 
 	} 
-    return false; 
+	return false; 
     }
 	
     public boolean percent(int between0and100){ 

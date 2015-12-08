@@ -1,6 +1,7 @@
 public class Objects{
+
     private int weight;
-    private String name;
+    protected String name;
 
     public Objects(String name, int weight){
 	this.weight = weight;
@@ -13,7 +14,9 @@ public class Objects{
 
     public String getName(){
 	return this.name;
-    }
+    } 
+   
+
 }
 
 

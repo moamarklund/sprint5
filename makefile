@@ -9,7 +9,7 @@ JFLAGS = -g
 # typing 'make' will invoke the first target entry in the makefile 
 # (the default one in this case)
 #
-default: Backpack.class Objects.java Keys.java Books.java
+default: Backpack.class Objects.class Keys.class Books.class Teacher.class Student.class Avatar.class Course.class World.class Creature.class 
 
 # this target entry builds the Average class
 # the Average.class file is dependent on the Average.java file
@@ -33,24 +33,29 @@ Teacher.class: Teacher.java
 Student.class: Student.java
 	$(JCC) $(JFLAGS) Student.java
 
-Sfinx.class: Sfinx.java
-	$(JCC) $(JFLAGS) Sfinx.java
-
 Avatar.class: Avatar.java
 	$(JCC) $(JFLAGS) Avatar.java
 
 Course.class: Course.java
 	$(JCC) $(JFLAGS) Course.java
 
-CreateWorld.class: CreateWorld.java
-	$(JCC) $(JFLAGS) CreateWorld.java
+World.class: World.java
+	$(JCC) $(JFLAGS) World.java
 
 Creature.class: Creature.java
 	$(JCC) $(JFLAGS) Creature.java
 
+CLASSPATH=".:/usr/share/java/junit4.jar"
+
+all:
+	javac -cp $(CLASSPATH) -g *.java
+
+test: all
+	junit ***testfiler****
 
 run:
 	$(JVM) Backpack
+	$(JVM) World
 
 # To start over from scratch, type 'make clean'.  
 # Removes all .class files, so that the next make rebuilds them

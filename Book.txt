@@ -1,0 +1,13 @@
+IOOPMboken;Elias och Tobias;1990;2
+Darkboken;Stefanos;1805;1
+Bakisboken deluxe;Malin och Moa;2015;3
+Programmeringens historia;Nån smart snubbe;2001;1
+Boken om julmust;Malin;2014;1
+Liftarens guide till galaxen;Douglas Adams;1979;1
+Haskell;Nån annan smart snubbe;1999;2
+Drinkboken 1;El bartendo grande;2004;1
+Drinkboken 2;El bartendo grandioso;2005;1
+Drinkboken 3;Los bartendos mafiosos;2011;1
+Drinkboken 4;Bartendern från framtiden;2030;2
+Jorden är jävligt rund;Galileo Galilei;1602;2
+Jordens alla hörn;En fyrkantig person;2010;3
