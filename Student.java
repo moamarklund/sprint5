@@ -1,3 +1,8 @@
+/**
+ * @author Malin Englund and Moa Marklund
+ * @since 2015/2016
+ */
+
 import java.util.*; 
 
 public class Student extends Creature{ 
@@ -7,7 +12,13 @@ public class Student extends Creature{
     private Course doneCourse; 
     private Books book; 
 
-    //Konstruktor 
+    //Konstruktor
+    /** 
+     *The constructor creates a student
+     *@param name is the student's name 
+     *@param book is the book for the student's done course 
+     *@param course is the that the student study now 
+     */
     public Student(String name, Books book, Course course){ 
 	super(course); 
 	this.name = name; 
@@ -16,20 +27,27 @@ public class Student extends Creature{
     } 
 
     //Metoder  
+    /** 
+     *Gets the name for the student 
+     *@return the student's name
+     */
     public String getName(){ 
 	return this.name; 
     }
 
+    /**
+     *The student says something.
+     *@param avatar is the thing that the student talks to 
+     */
     public void talk(Avatar avatar){ 
-	System.out.println("Hi! My current course is" + this.course + "and my done course is" + this.doneCourse +". If you have the book for my current course, we can trade! trade my <name> or <no>");
-	ArrayList<String> answer = readSpecialInput("trade ","no"); 
-	if(answer.get(0).equals("no")) return; 
-	else if(answer.get(0).equals("trade ")) trade(avatar, answer.get(1));
-	else{ 
-	    System.out.println("Oh noes!");
-	}
-	}  
+	System.out.println("Hi! My current course is" + this.course + "and my done course is" + this.doneCourse +". If you have the book for my current course, we can trade!");
+    }  
 
+    /** 
+     *Switchs books or gives the avatar the right answer
+     *@param avatar is the avatar that the student interacts with
+     *@param name is the student's name 
+     */
     public void trade(Avatar avatar, String name){ 
 	if(name.equals(this.name)) { 
 	    //om boken finns i avatarens backpack 
@@ -52,53 +70,50 @@ public class Student extends Creature{
 	else System.out.print("Wrong name!!!");
     } 
 
+    /** 
+     *The function reads input from the user and checks if it is valid.
+      *@param a is an allowed input from the user     *@param a is an allowed input from the user 
+     *@param b is an allowed input from the user 
+     *@return the input from the user 
+     */
     public String readInput(String a, String b){ 
 	String answer = "";
 	while(true){ 
 	    Scanner sc = new Scanner(System.in);
 	    answer = sc.next(); 
-	    if((answer == a)||(answer==b)) break; 
+	    if((answer.equals(a))||(answer.equals(b))) break; 
 	    else System.out.print("Valid inputs are" + a + b);    
 	} 
 	return answer; 
     }
 
+    /**
+     *The function removes the book for the student's active course.
+     *@param avatar's backpack is where the function is going to remove the book
+     *@return The removed book if it was found and removed else an "empty" book
+     */ 
     public Books removeBookForCourse(Avatar avatar){ 
 	Backpack b = avatar.getBackpack();
 	return b.removeBookForCourse(this.course);
     }
 
+    /** 
+     *The function checks if the book with the belonging course c is in the backpack. 
+     *@param c is the course that belongs to the book that is going to be checked 
+     *@return true if the book was found else false
+     */
     public boolean checkBackpack(Avatar avatar){ 
 	Backpack b = avatar.getBackpack();
 	return b.checkCourse(this.course);
     } 
 
+    /** 
+     *toString method for the student class. 
+     *@return a string containing the student's name
+     */
     public String toString(){ 
 	return name; 
     }
-	
-    public ArrayList<String> readSpecialInput(String a, String b){ 
-	String answer = "";
-	String name = ""; 
-	ArrayList<String> list = new ArrayList<String>();
-	Scanner sc = new Scanner(System.in);
-	while(true){ 
-	    answer = sc.nextLine(); 
-	    if(answer.length() >= a.length()) name = answer.substring(a.length(),answer.length());
-	    if(answer.length() >= a.length()) answer = answer.substring(0,a.length()); //??? 
-	    if((answer.equals(a))||(answer.equals(b))) break; 
-	    else System.out.print("Valid inputs are" + a + "<student's name> ," + b);    
-	}  
-	if(a.equals(answer)) { 
-	    list.add(0, answer); 
-	    list.add(1, name);
-	} 
-	if(b.equals(answer)) { 
-	    list.add(0, answer); 
-	}
-	return list; 
-    } 
-  
 }
     
 

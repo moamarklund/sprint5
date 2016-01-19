@@ -1,3 +1,8 @@
+/**
+ * @author Malin Englund and Moa Marklund
+ * @since 2015/2016
+ */
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,12 +12,19 @@ public class Backpack {
     private int weight;
     private int totalObjects; 
     
+    /**
+     *@brief The constructor creates a backpack
+     */
     public Backpack(){
 	objectlist = new ArrayList<Item>();
 	this.weight = 0;
 	this.totalObjects = 0;
     }
     
+    /**
+     *The function adds item to the backpack
+     *@param item is going to be added 
+     */
     public void pack(Item item){
 	if(weight >= 10){
 	    System.out.println("Backpack full, drop some objects before packing");
@@ -35,13 +47,21 @@ public class Backpack {
 	      }*/
     }
     
-    
+    /** 
+     *Drops the specified item 
+     *@param item is going to be removed
+    **/
     public void drop(Item item){
 	weight -= item.getWeight();
 	objectlist.remove(item);
 	totalObjects--;   
     }
     
+    /** 
+     *The function checks if the book with the belonging course c is in the backpack. 
+     *@param c is the course that belongs to the book that is going to be checked 
+     *@return true if the book was found else false
+     */
     public boolean checkCourse(Course c){ 
 	Iterator<Item> iterator = objectlist.iterator(); 
 	while(iterator.hasNext()){ 
@@ -54,6 +74,11 @@ public class Backpack {
 	return false; 
     } 
 
+    /**
+     *The function removes the book for specified course.
+     *@param c is the course for which the function is going to remove the belonging book
+     *@return The removed book if it was found and removed else an "empty" book
+     */ 
     public Books removeBookForCourse(Course c){ 
 	Iterator<Item> iterator = objectlist.iterator(); 
 	Books book = new Books("","",0,0,c);//endast för att detta inte kan va i loopen
@@ -68,7 +93,10 @@ public class Backpack {
 	drop(book);
 	return book;
     }
-	
+
+    /**
+     *List the all the items in the backpack.
+     */ 	
     public void inventory(){
 	if(totalObjects == 0){ 
 	    System.out.println("The backpack is empty!"); 
@@ -87,7 +115,7 @@ public class Backpack {
     }
     
     
-	
+    /*	
 public static void main(String [] args){
     Backpack b = new Backpack();
     Item o1 = new Item("Bok", 2);
@@ -114,7 +142,7 @@ public static void main(String [] args){
     System.out.println(b.totalObjects);
     System.out.println(b.weight);
     }
-
+    */
 }
    
 
