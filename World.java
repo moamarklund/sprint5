@@ -382,7 +382,7 @@ public class World{
 	for(int y = 0; y < 6; y++){ 
 	    c.add(courses10HP.get(randomnr.get(y)));
 	}
-	this.avatar = new Avatar(c);
+	this.avatar = new Avatar();
     }
 
     public ArrayList<Teacher> getTeachers(){ 

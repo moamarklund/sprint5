@@ -1,7 +1,9 @@
 import java.util.*;
 
+
+
 public class Main{ 
-    
+
     public Main(){ 
     } 
 
@@ -14,6 +16,7 @@ public class Main{
 	    //kolla sphinxen - går ur loopen
 	    //printa rummet
 	    //	    System.out.print("\033[2J\033[;H");
+	    System.out.println("=============== PollaxMUD ================");
 	    System.out.println(currentRoom);
 	    //kommandon - inläsning från användaren: 
 	    String input = m.readInput("go north","go south","go east","go west","inventory","pick up","drop","check courses","talk","trade","graduate","enroll"); 
@@ -146,7 +149,7 @@ public class Main{
 		if((answer.substring(0,7)).equals(pu)) breakLoop = true; 
 	    } 
 	    if(breakLoop == true) break;
-	    else System.out.println("Valid inputs are : " + gn + gs + ge + gw + i + pu + d + cc + ta + tr + gr + e);    
+	    else System.out.println("Valid inputs are : " + gn + " " + gs + " " + ge + " " + gw+ " "  + i + " " + pu + " "  + d + " "  + cc + " "  + ta+  " "  + tr + " "  + gr + " " + e);    
 	} 
 	return answer; 
     }

@@ -1,5 +1,19 @@
 import java.util.*;
-
+/**
+ * Represents a room 
+ * @param roomItems The items in the room
+ * @param student The student in the room
+ * @param teacher The teacher in the room
+ * @param name The name of the room
+ * @param north The room in the north direction
+ * @param doorOpenNorth A boolean representing if the north room is open 
+ * @param south The room in the south direction
+ * @param doorOpenSouth A boolean representing if the south room is open 
+ * @param east The room in the east direction
+ * @param doorOpenEast A boolean representing if the east room is open 
+ * @param west The room in the west direction
+ * @param doorOpenWest A boolean representing if the west room is open 
+ **/
 public class Room{
     private final ArrayList <Item> roomItems;
     private Student student;
@@ -14,6 +28,21 @@ public class Room{
     private Room west;
     private boolean doorOpenWest;
 
+    /**
+     * Creates a room 
+     * @param name The name of the room
+     * @param north The room in the north direction
+     * @param doorOpenNorth A boolean representing if the north room is open 
+     * @param south The room in the south direction
+     * @param doorOpenSouth A boolean representing if the south room is open 
+     * @param east The room in the east direction
+     * @param doorOpenEast A boolean representing if the east room is open 
+     * @param west The room in the west direction
+     * @param doorOpenWest A boolean representing if the west room is open 
+     * @param student The student in the room
+     * @param teacher The teacher in the room
+     * @param roomItems The items in the room
+     **/
     public Room(String name, Room north, Room south, Room east, Room west, boolean doorNorth, boolean doorSouth, boolean doorEast, boolean doorWest, Teacher teacher, Student student, ArrayList<Item> items){
 	this.roomItems = items;
 	this.student = student;
@@ -29,58 +58,113 @@ public class Room{
 	this.doorOpenWest = doorWest;
     } 
 
+    /**
+     * Creates a room with fixed room settings 
+     * @param name The name of the room 
+     * @param student The student in the room
+     * @param teacher The teacher in the room
+     * @param roomItems The items in the room
+     **/
     public Room(String name, Teacher teacher, Student student,ArrayList<Item> items){ 
 	this(name, null, null, null, null, false, false, false, false, teacher, student, items); 
     }
 
+    /**
+     * Sets a room in a direction to a decided room
+     * @param set The room to set to 
+     **/
     public void setRoomNorth(Room set){ 
 	this.north = set; 
     } 
-
+   /**
+     * Sets a room in a direction to a decided room
+     * @param set The room to set to 
+     **/
     public void setRoomSouth(Room set){ 
 	this.south = set; 
     } 
-
+   /**
+     * Sets a room in a direction to a decided room
+     * @param set The room to set to 
+     **/
     public void setRoomEast(Room set){ 
 	this.east = set; 
     } 
-
+   /**
+     * Sets a room in a direction to a decided room
+     * @param set The room to set to 
+     **/
     public void setRoomWest(Room set){ 
 	this.west = set; 
     } 
 
+    /**
+     * Checks which room is in a certain direction
+     * @return The room in that direction
+     **/
     public Room getRoomNorth(){ 
 	return this.north; 
     } 
 
+    /**
+     * Checks which room is in a certain direction
+     * @return The room in that direction
+     **/
     public Room getRoomSouth(){ 
 	return this.south; 
     } 
 
+    /**
+     * Checks which room is in a certain direction
+     * @return The room in that direction
+     **/
     public Room getRoomEast(){ 
 	return this.east; 
     } 
 
+    /**
+     * Checks which room is in a certain direction
+     * @return The room in that direction
+     **/
     public Room getRoomWest(){ 
 	return this.west; 
     } 
 
+    /**
+     * Checks the name of a room
+     * @return The name of the room 
+     **/
     public String getName(){ 
 	return this.name; 
     } 
-    
+
+    /**
+     * Checks the student in the room
+     * @return The student in the room
+     **/
     public Student getStudent(){ 
 	return this.student; 
     } 
 
+    /**
+     * Checks the teacher in the room
+     * @return The teacher in the room
+     **/
     public Teacher getTeacher(){ 
 	return this.teacher; 
     } 
 
+    /**
+     * Checks if a name is equal to the name of the student in the room 
+     * @return True if they were equal, otherwise false
+     **/
     public boolean checkStudentName(String namee){ 
 	return namee.equals(student.getName()); 
     }
-
+    /**
+     * Creates a string of a room 
+     * @return A string represeting a room 
+     **/
     public String toString(){ 
 	Room[] rooms = {north,south,east,west}; 
 	boolean[] doors = {doorOpenNorth,doorOpenSouth,doorOpenEast,doorOpenWest};
@@ -94,10 +178,10 @@ public class Room{
 		hola[i] = "X"; 
 	    } 
 	    if(rooms[i] != null && doors[i]){ 
-		hola[i] = "The door is open to room : " + rooms[i].name;
+		hola[i] = "The door is open to room: " + rooms[i].name;
 	    } 
 	    else if (rooms[i] != null && !doors[i]){ 
-		hola[i] = "The door is closed to room : " + rooms[i].name;
+		hola[i] = "The door is closed to room: " + rooms[i].name;
 	    }    
 	}
        

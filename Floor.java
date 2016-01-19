@@ -1,46 +1,23 @@
 import java.util.*;
-    
+/**
+ * Represents the second floor at Pollax
+ * @param first The first room 
+ **/
 public class Floor{
     private Room first; 
 
-
+    /**
+     * Creates a floor
+     * @param room The room to start from
+     **/
     public Floor(Room room){
 	this.first = room;
     }
-
+    /**
+     * Checks the first room in the floor
+     * @return The first room in the floor
+     **/
     public Room getFirst(){ 
 	return this.first; 
     }
 }
-
-/* public class Hallway{
-	private ArrayList<Student> students;
-	private ArrayList<Objects> items;
-	private Room north;
-	private boolean openNorth;
-	private Room south;
-	private boolean openSouth;
-	private Hallway east;
-	private boolean openEast;
-	private Hallway west;
-	private boolean openWest;
-
-
-
-        public Hallway(){
-	    this.north = null;
-	    this.openNorth = false;
-	    this.south = null;
-	    this.openSouth = false;
-	    this.west = null;
-	    this.openWest = false;
-	    this.east = null;
-	    this.openEast = false;
-	}
-    }
-
-    
-
-    
-    }*/
-

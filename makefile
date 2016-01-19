@@ -11,7 +11,7 @@ JFLAGS = -g
 # typing 'make' will invoke the first target entry in the makefile 
 # (the default one in this case)
 #
-default: Backpack.class Objects.class Keys.class Books.class Teacher.class Student.class Avatar.class Course.class World.class Creature.class 
+default: Backpack.class Objects.class Keys.class Books.class Teacher.class Student.class Avatar.class Course.class World.class Creature.class Main.class
 
 # this target entry builds the Average class
 # the Average.class file is dependent on the Average.java file
@@ -47,14 +47,16 @@ World.class: World.java
 Creature.class: Creature.java
 	$(JCC) $(JFLAGS) Creature.java
 
+Main.class: Main.java
+	$(JCC) $(JFLAGS) Main.java
+
 CLASSPATH=".:/usr/share/java/junit4.jar"
 
 all:
 	javac -cp $(CLASSPATH) -g *.java
 
 run:
-	$(JVM) Backpack
-	$(JVM) World
+	$(JVM) Main
 
 #Malin version
 MUD: 
