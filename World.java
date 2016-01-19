@@ -11,9 +11,10 @@ public class World{
     private ArrayList<Teacher> teachers; 
     private ArrayList<Student> students; 
     private ArrayList<Books> books; 
-    private ArrayList<Keys> keys;
+    private ArrayList<Item> keys;
     private ArrayList<Room> rooms;
     private ArrayList<Room> hallways;
+    private Avatar avatar;
     private Floor floor;
 
     public World(){ 
@@ -21,9 +22,16 @@ public class World{
 	teachers = new ArrayList<Teacher>();
 	students = new ArrayList<Student>();
 	books = new ArrayList<Books>();
-	keys = new ArrayList<Keys>(); 
+	keys = new ArrayList<Item>(); 
 	rooms = new ArrayList<Room>();
-	hallways = new ArrayList<Room>();
+	hallways = new ArrayList<Room>(); 
+	createCourses(); 
+	createTeachers();
+	createBooks();
+	createKeys();
+	createStudents();
+	createFloor();
+	createAvatar();
     }
     
     public void readInputCourses() throws IOException {
@@ -160,21 +168,17 @@ public class World{
 	List<String> hallway = Files.readAllLines(Paths.get("hallway.txt"), Charset.defaultCharset()); 
 	int amountOfRoomsAndHallways = room.size() + hallway.size();
 
-	ArrayList<ArrayList<Keys>> inceptionKeyList = new ArrayList<ArrayList<Keys>>();
+	ArrayList<ArrayList<Item>> inceptionKeyList = new ArrayList<ArrayList<Item>>();
 	Random random = new Random();
 	int totalAmountOfRandomizedKeys = 0;
 	int maxAmountOfKeysPerRoom = 4;
 
 	for(int h = 0; h < amountOfRoomsAndHallways; h++){ 
-	    int randomInt;
-	    if(totalAmountOfRandomizedKeys + maxAmountOfKeysPerRoom - 1 <= this.keys.size()) {//vad gör den här koden? hur tänkte jag?
-		randomInt = this.keys.size() - totalAmountOfRandomizedKeys; 
-	    } 
-	    else{ 
-		randomInt = random.nextInt(maxAmountOfKeysPerRoom); //exlusive maxAmountOfKeysPerRoomMinusOne 
-	    }
-	    ArrayList<Keys> keys2 = new ArrayList<Keys>();
-	    for(int y = 0; y < (randomInt); y++){
+	    int randomInt;    
+	    randomInt = random.nextInt(maxAmountOfKeysPerRoom); //exlusive maxAmountOfKeysPerRoomMinusOne 
+	    
+	    ArrayList<Item> keys2 = new ArrayList<Item>();
+	    for(int y = 0; y < (randomInt); y++){ //hej aliaseringsproblem
 		keys2.add(this.keys.get(y));
 	    } 
 	    totalAmountOfRandomizedKeys += randomInt; 
@@ -193,11 +197,11 @@ public class World{
 
 	    Room r;
 
-	    if(list.size() < fileText1.size()) { 
-		r = new Room(name, null, null, null, null, false, false, false, false, null, null,inceptionKeyList.get(i));
+	    if(i == 13) { //hej fulkod
+		r = new Room(name, null, null,inceptionKeyList.get(i));
 	    } 
 	    else{ 
-		r = new Room(name, null, null, null, null, false, false, false, false, teachers.get(list.get(i)), students.get(list.get(i)), inceptionKeyList.get(i));
+		r = new Room(name, teachers.get(list.get(i)), students.get(list.get(i)), inceptionKeyList.get(i));
 	    }
 	    
 	    this.rooms.add(r);  
@@ -277,32 +281,22 @@ public class World{
 	//setting hallway to hallway references 
 	this.hallways.get(0).setRoomWest(this.hallways.get(1));
 	this.hallways.get(1).setRoomEast(this.hallways.get(0));
-	for(int d = 1; d < 5; d++){ 
-	    if(d == 4){ 
-		this.hallways.get(4).setRoomNorth(this.hallways.get(3));
-	    } 
+	for(int d = 1; d < hallways.size(); d++){ 
 	    if(d== 1){ 
 		this.hallways.get(1).setRoomSouth(this.hallways.get(2));
 	    } 
+	    if(d == (hallways.size()-1)){ 
+		this.hallways.get(d).setRoomNorth(this.hallways.get(d-1)); 
+	    }
 	    else{
 		this.hallways.get(d).setRoomSouth(this.hallways.get(d+1));
 		this.hallways.get(d+1).setRoomNorth(this.hallways.get(d));
-	    } 
-	}
-	for(int c = 5; c < hallways.size(); c++){ 
-	    if(c == 5){ 
-		this.hallways.get(5).setRoomSouth(this.hallways.get(6)); 
-	    } 
-	    if(c == (hallways.size()-1)){ 
-		this.hallways.get(c).setRoomNorth(this.hallways.get(c-1)); 
-	    } 
-	    else{ 
-		this.hallways.get(c).setRoomSouth(this.hallways.get(c+1));
-		this.hallways.get(c+1).setRoomNorth(this.hallways.get(c));		    
-	    } 
+	    }  
 	} 
 	this.hallways.get(4).setRoomEast(this.hallways.get(5));
 	this.hallways.get(5).setRoomWest(this.hallways.get(4));
+	this.hallways.get(4).setRoomSouth(null); 
+	this.hallways.get(5).setRoomNorth(null);
 	    
 	this.floor  = new Floor(this.hallways.get(3));	
     }
@@ -345,7 +339,7 @@ public class World{
 
     public void createKeys(){ 
 	for(int i = 0; i < 21; i++){ 
-	    Keys k = new Keys("Hola"); 
+	    Key k = new Key("Hola"); 
 	    keys.add(k); 
 	} 
     } 
@@ -368,6 +362,27 @@ public class World{
 	    System.out.println("Det blev fel nu visst: " + e.getMessage());
 	    e.printStackTrace(); 
 	} 
+    } 
+
+    public void createAvatar(){ 
+	//slumpa 10HP kurser 
+	ArrayList<Course> courses10HP = new ArrayList<Course>(); 
+	for(int i = 0; i < this.courses.size(); i++){ 
+	    if(courses.get(i).getHP() == 10){ 
+		courses10HP.add(courses.get(i));
+	    } 
+	} 
+	List<Integer> randomnr = new ArrayList<>();
+	for(int j = 0; j < 6; j++){ 
+	    randomnr.add(j); 
+	} 
+	Collections.shuffle(randomnr);
+	//skapa avatar
+	ArrayList<Course> c = new ArrayList<Course>();
+	for(int y = 0; y < 6; y++){ 
+	    c.add(courses10HP.get(randomnr.get(y)));
+	}
+	this.avatar = new Avatar(c);
     }
 
     public ArrayList<Teacher> getTeachers(){ 
@@ -378,7 +393,7 @@ public class World{
 	return this.books; 
     } 
 
-    public ArrayList<Keys> getKeys(){ 
+    public ArrayList<Item> getKeys(){ 
 	return this.keys; 
     } 
 
@@ -400,16 +415,18 @@ public class World{
 
     public ArrayList<Room> getHallways(){ 
 	return this.hallways; 
+    } 
+    
+    public Avatar getAvatar(){ 
+	return this.avatar; 
+    }
+
+    public Room getFirst(){ 
+	return this.floor.getFirst();
     }
 
     public static void main(String[] args){ 
 	World world = new World();
-	world.createCourses(); 
-	world.createTeachers();
-	world.createBooks();
-	world.createKeys();
-	world.createStudents();
-	world.createFloor();
 	System.out.println(world.getCourses());
 	System.out.println(world.getTeachers());
 	System.out.println(world.getBooks());
@@ -418,5 +435,7 @@ public class World{
 	System.out.println(world.getFloor());
 	System.out.println(world.getRooms()); 
 	System.out.println(world.getHallways());
+	System.out.println(world.getFirst());
+	System.out.println(world.getAvatar());
     }
 }
