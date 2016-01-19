@@ -1,5 +1,7 @@
 JCC = javac
 JVM = java
+TESTFILES = Tests.java
+TESTS = $(TESTFILES:.java=)
 
 # define a makefile variable for compilation flags
 # the -g flag compiles with debugging information
@@ -50,15 +52,28 @@ CLASSPATH=".:/usr/share/java/junit4.jar"
 all:
 	javac -cp $(CLASSPATH) -g *.java
 
-test: all
-	junit ***testfiler****
-
 run:
 	$(JVM) Backpack
 	$(JVM) World
 
+#Malin version
+MUD: 
+	@javac *.java
+
+
+test: $(TESTFILES)
+	javac -cp .:junit-4.12.jar $(TESTFILES)
+	java  -cp .:junit-4.12.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore $(TESTS)
+
 # To start over from scratch, type 'make clean'.  
 # Removes all .class files, so that the next make rebuilds them
 #
+#clean: 
+#	$(RM) *.class 
+
+#The Malin version
 clean: 
-	$(RM) *.class
+	rm -rf *.java~
+	rm -rf *.txt~ 
+	rm -rf *.java# 
+	rm -rf *.class
