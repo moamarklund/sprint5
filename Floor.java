@@ -8,6 +8,9 @@ public class Floor{
 	this.first = room;
     }
 
+    public Room getFirst(){ 
+	return this.first; 
+    }
 }
 
 /* public class Hallway{

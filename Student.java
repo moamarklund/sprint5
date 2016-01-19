@@ -15,29 +15,35 @@ public class Student extends Creature{
 	this.doneCourse = book.getCourse();
     } 
 
+    //Metoder  
+    public String getName(){ 
+	return this.name; 
+    }
 
-    //Metoder 
     public void talk(Avatar avatar){ 
-	System.out.print("Hi! My current course is" + this.course + "and my done course is" + this.doneCourse +". If you have the book for my current course, we can trade! trade my <name> or <no>");
+	System.out.println("Hi! My current course is" + this.course + "and my done course is" + this.doneCourse +". If you have the book for my current course, we can trade! trade my <name> or <no>");
 	ArrayList<String> answer = readSpecialInput("trade ","no"); 
-	if(answer.get(0) == "no") return; 
-	else if(answer.get(0) == "trade ")trade(avatar, answer.get(1));
+	if(answer.get(0).equals("no")) return; 
+	else if(answer.get(0).equals("trade ")) trade(avatar, answer.get(1));
+	else{ 
+	    System.out.println("Oh noes!");
+	}
 	}  
 
     public void trade(Avatar avatar, String name){ 
-	if(name == this.name) { 
+	if(name.equals(this.name)) { 
 	    //om boken finns i avatarens backpack 
 	    if(checkBackpack(avatar)) { //kolla om avataren är registerad på kursen?
 		System.out.print("Would you like the book:" + this.book + "or the right answer to the teachers question? <b> or <r>"); 
 		String answer = readInput("b","r");
 		//studenten ger avataren sin gamla kursbok och uppdatera studentens bok 
-		if (answer == "b") {
+		if (answer.equals("b")) {
 		    Backpack b = avatar.getBackpack(); 
 		    b.pack(this.book); 
 		    this.book = removeBookForCourse(avatar);
 		} 
 		//eller uppdatera course rightanswer till true och uppdatera studentens bok
-		if (answer == "r") { 
+		if (answer.equals("r")) { 
 		    this.course.setRightAnswer(true);
 		    this.book = removeBookForCourse(avatar);
 		}
@@ -65,6 +71,10 @@ public class Student extends Creature{
     public boolean checkBackpack(Avatar avatar){ 
 	Backpack b = avatar.getBackpack();
 	return b.checkCourse(this.course);
+    } 
+
+    public String toString(){ 
+	return name; 
     }
 	
     public ArrayList<String> readSpecialInput(String a, String b){ 
@@ -73,17 +83,17 @@ public class Student extends Creature{
 	ArrayList<String> list = new ArrayList<String>();
 	Scanner sc = new Scanner(System.in);
 	while(true){ 
-	    answer = sc.next(); 
+	    answer = sc.nextLine(); 
 	    if(answer.length() >= a.length()) name = answer.substring(a.length(),answer.length());
 	    if(answer.length() >= a.length()) answer = answer.substring(0,a.length()); //??? 
-	    if((answer == a)||(answer== b)) break; 
+	    if((answer.equals(a))||(answer.equals(b))) break; 
 	    else System.out.print("Valid inputs are" + a + "<student's name> ," + b);    
 	}  
-	if(a == answer) { 
+	if(a.equals(answer)) { 
 	    list.add(0, answer); 
 	    list.add(1, name);
 	} 
-	if(b == answer) { 
+	if(b.equals(answer)) { 
 	    list.add(0, answer); 
 	}
 	return list; 

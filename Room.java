@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Room{
-    private final ArrayList <Keys> roomKeys;
+    private final ArrayList <Item> roomItems;
     private Student student;
     private Teacher teacher;
     private String name;
@@ -14,8 +14,8 @@ public class Room{
     private Room west;
     private boolean doorOpenWest;
 
-    public Room(String name, Room north, Room south, Room east, Room west, boolean doorNorth, boolean doorSouth, boolean doorEast, boolean doorWest, Teacher teacher, Student student, ArrayList<Keys> keys){
-	this.roomKeys = keys;
+    public Room(String name, Room north, Room south, Room east, Room west, boolean doorNorth, boolean doorSouth, boolean doorEast, boolean doorWest, Teacher teacher, Student student, ArrayList<Item> items){
+	this.roomItems = items;
 	this.student = student;
 	this.teacher = teacher;
 	this.name = name;
@@ -28,6 +28,10 @@ public class Room{
 	this.west = west;
 	this.doorOpenWest = doorWest;
     } 
+
+    public Room(String name, Teacher teacher, Student student,ArrayList<Item> items){ 
+	this(name, null, null, null, null, false, false, false, false, teacher, student, items); 
+    }
 
     public void setRoomNorth(Room set){ 
 	this.north = set; 
@@ -64,6 +68,18 @@ public class Room{
     public String getName(){ 
 	return this.name; 
     } 
+    
+    public Student getStudent(){ 
+	return this.student; 
+    } 
+
+    public Teacher getTeacher(){ 
+	return this.teacher; 
+    } 
+
+    public boolean checkStudentName(String namee){ 
+	return namee.equals(student.getName()); 
+    }
 
     public String toString(){ 
 	Room[] rooms = {north,south,east,west}; 
@@ -84,7 +100,14 @@ public class Room{
 		hola[i] = "The door is closed to room : " + rooms[i].name;
 	    }    
 	}
-	    
-	return "\nDu är i : " + name + "\nNord : " + hola[0] + "\nSyd : " + hola[1] + "\nÖst : " + hola[2] + "\nVäst : " + hola[3]; 
+       
+	String studentish = ""; 
+	if(student != null) { 
+	    studentish = "\nHär finns studenten " + this.student.toString(); 
+	} 
+	else{ 
+	    studentish = "\nDet finns ingen student här!"; 
+	}
+	return "\nDu är i : " + name + "\nNord : " + hola[0] + "\nSyd : " + hola[1] + "\nÖst : " + hola[2] + "\nVäst : " + hola[3] + "\nAntal nycklar som finns i rummet : " + roomItems.size() + studentish; 
     }
 }

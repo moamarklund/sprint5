@@ -1,6 +1,6 @@
 import java.util.*; 
 
-public class Books extends Objects {
+public class Books extends Item {
 
     private Course course;
     private String author; 
@@ -23,6 +23,10 @@ public class Books extends Objects {
     } 
 
     public String getName(){ 
-	return this.name; 
+	return super.getName(); 
     } 
+
+    public String toString(){ 
+	return "Boktitel : " + name;
+    }
 }
