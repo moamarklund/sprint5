@@ -1,3 +1,8 @@
+/**
+ * @author Malin Englund and Moa Marklund
+ * @since 2015/2016
+ */
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,8 +21,8 @@ public class Backpack {
 
     
     /**
-     * Creates a backpack
-     **/
+     *@brief The constructor creates a backpack
+     */
     public Backpack(){
 	objectlist = new ArrayList<Item>();
 	this.weight = 0;
@@ -26,9 +31,9 @@ public class Backpack {
 
     
     /**
-     * Packs an item to the backpack
-     * @param item The item to be packed
-     **/
+     *The function adds item to the backpack
+     *@param item is going to be added 
+     */
     public void pack(Item item){
 	if(weight >= 10){
 	    System.out.println("Backpack full, drop some objects before packing");
@@ -50,24 +55,23 @@ public class Backpack {
 	      weight += item.getWeight();
 	      }*/
     }
-    
-    
-    /**
-     * Drops an item from the backpack
-     * @param item The item to be dropped from the backpack
-     **/
+
+    /** 
+     *Drops the specified item 
+     *@param item is going to be removed
+    **/
     public void drop(Item item){
 	weight -= item.getWeight();
 	objectlist.remove(item);
 	totalObjects--;   
     }
 
-    
-    /**
-     * Takes a course and checks if the book for that course is in the backpack
-     * @param c the course to look for
-     * @return true if the book was in the backpack and false otherwise
-     **/
+ 
+    /** 
+     *The function checks if the book with the belonging course c is in the backpack. 
+     *@param c is the course that belongs to the book that is going to be checked 
+     *@return true if the book was found else false
+     */
     public boolean checkCourse(Course c){ 
 	Iterator<Item> iterator = objectlist.iterator(); 
 	while(iterator.hasNext()){ 
@@ -81,10 +85,10 @@ public class Backpack {
     } 
 
     /**
-     * Drops a book for a certain course
-     * @param c The course to drop the book for
-     * @return The book that was dropped
-     **/
+     *The function removes the book for specified course.
+     *@param c is the course for which the function is going to remove the belonging book
+     *@return The removed book if it was found and removed else an "empty" book
+     */ 
     public Books removeBookForCourse(Course c){ 
 	Iterator<Item> iterator = objectlist.iterator(); 
 	Books book = new Books("","",0,0,c);//endast för att detta inte kan va i loopen
@@ -100,10 +104,9 @@ public class Backpack {
 	return book;
     }
 
-    
     /**
-     * Prints out all of the items in the backpack
-     **/
+     *List the all the items in the backpack.
+     */ 	
     public void inventory(){
 	if(totalObjects == 0){ 
 	    System.out.println("The backpack is empty!"); 
@@ -121,6 +124,3 @@ public class Backpack {
 	  System.out.println("==================");
     }
     
-
-
-}
