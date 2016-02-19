@@ -11,7 +11,7 @@ JFLAGS = -g
 # typing 'make' will invoke the first target entry in the makefile 
 # (the default one in this case)
 #
-default: Backpack.class Objects.class Keys.class Books.class Teacher.class Student.class Avatar.class Course.class World.class Creature.class Main.class
+default: Backpack.class Item.class Key.class Books.class Teacher.class Student.class Avatar.class Course.class World.class Creature.class Main.class
 
 # this target entry builds the Average class
 # the Average.class file is dependent on the Average.java file
@@ -20,11 +20,11 @@ default: Backpack.class Objects.class Keys.class Books.class Teacher.class Stude
 Backpack.class: Backpack.java
 	$(JCC) $(JFLAGS) Backpack.java
 
-Objects.class: Objects.java
-	$(JCC) $(JFLAGS) Objects.java
+Item.class: Item.java
+	$(JCC) $(JFLAGS) Item.java
 
-Keys.class: Keys.java
-	$(JCC) $(JFLAGS) Keys.java
+Key.class: Key.java
+	$(JCC) $(JFLAGS) Key.java
 
 Books.class: Books.java
 	$(JCC) $(JFLAGS) Books.java
