@@ -33,6 +33,18 @@ public class Student extends Creature{
      */
     public String getName(){ 
 	return this.name; 
+    } 
+
+    /** 
+     *Gets the book for the student 
+     *@return the student's book
+     */
+    public Books getBook(){ 
+	return this.book;
+    } 
+
+    public Course getCourse(){ 
+	return this.course; 
     }
 
     /**

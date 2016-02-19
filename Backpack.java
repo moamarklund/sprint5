@@ -29,6 +29,17 @@ public class Backpack {
 	this.totalObjects = 0;
     }
 
+    public void setWeight(int weight){
+	this.weight = weight; 
+    } 
+
+    public void setTotalObjects(int a){ 
+	this.totalObjects = a; 
+    }
+
+    public int getTotalObjects(){
+	return this.totalObjects; 
+    }
     
     /**
      *The function adds item to the backpack
@@ -122,5 +133,6 @@ public class Backpack {
 	  }
 	  
 	  System.out.println("==================");
-    }
+    } 
+}
     
