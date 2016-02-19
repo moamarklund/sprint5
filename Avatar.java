@@ -19,6 +19,8 @@ public class Avatar {
     public Avatar(){ 
 	unfinishedCourses = new ArrayList<Course>(); 
 	finishedCourses = new ArrayList<Course>();
+	this.HP = 60;	
+	this.backpack = new Backpack(); 
     } 
 
     /**
