@@ -1,13 +1,22 @@
 import java.util.*; 
-
+/**
+ * Represents a teacher 
+ **/
 public class Teacher extends Creature{
 
-    //Konstruktor 
+    /**
+     * Creates a teacher
+     * @param course The course the teacher teaches 
+     **/
     public Teacher(Course course){ 
 	super(course); 
     } 
 
-    //Metoder 
+    /**
+     * Enrolls the avatar to a course
+     * @param avatar The avatar to enroll
+     * @param course_name The name of the course to enroll to 
+     **/ 
     public void enroll(Avatar avatar, String course_name){ 
 	if(course_name == this.course.getName()){ 
 	    List<Course> list = avatar.getUnfinishedCourses();
@@ -16,6 +25,10 @@ public class Teacher extends Creature{
 	else System.out.print("I don't teach that course, enroll failed");
     } 
 
+    /**
+     * Gets the teacher to talk to an avatar
+     * @param avatar The avatar to talk to 
+     **/
     public void talk(Avatar avatar){ 
 	List<Course> list1 = avatar.getUnfinishedCourses();
 	List<Course> list2 = avatar.getFinishedCourses(); 
@@ -77,6 +90,12 @@ public class Teacher extends Creature{
 	} 	    
     } 
 
+    /**
+     * Removes or adds a course 
+     * @param removeElementFromList The elements to remove
+     * @param addElementToList The elements to add
+     * @return True if the both operations succeeded otherwise false
+     **/
     public boolean removeAndAdd(List<Course> removeElementFromList, List<Course> addElementToList){ 
 	boolean removeSuccess = removeElementFromList.remove(this.course); 
 	boolean addSuccess = addElementToList.add(this.course); 
@@ -84,6 +103,10 @@ public class Teacher extends Creature{
 	else return false; 
     }
 
+    /**
+     * Asks questions to the avatar
+     * @param avatar The avatar to ask question
+     **/
     public boolean askQuestions(Avatar avatar){ 
 	int questionToBeAsked = generateRandomNumber1to3();
 	boolean rightAnswer = false;
