@@ -1,56 +1,51 @@
 JCC = javac
 JVM = java
-TESTFILES = Tests.java
-TESTS = $(TESTFILES:.java=)
-
-# define a makefile variable for compilation flags
-# the -g flag compiles with debugging information
-#
 JFLAGS = -g
+TESTFILES = Tests.java
+CLASSPATH=".:/usr/share/java/junit4.jar"
+TESTS = $(TESTFILES:.java=)
 
 # typing 'make' will invoke the first target entry in the makefile 
 # (the default one in this case)
 #
-default: Backpack.class Item.class Key.class Books.class Teacher.class Student.class Avatar.class Course.class World.class Creature.class Main.class
+default:  Key Books Item Teacher Student Avatar Course World Creature Main Backpack
 
 # this target entry builds the Average class
 # the Average.class file is dependent on the Average.java file
 # and the rule associated with this entry gives the command to create it
 #
-Backpack.class: Backpack.java
-	$(JCC) $(JFLAGS) Backpack.java
+Item: Item.java 
+	$(JCC) Item.java
 
-Item.class: Item.java
-	$(JCC) $(JFLAGS) Item.java
+Books: Books.java Item.java Course.java
+	$(JCC) Books.java Item.java Course.java
 
-Key.class: Key.java
-	$(JCC) $(JFLAGS) Key.java
+Key: Key.java Item.java
+	$(JCC) $(JFLAGS) Key.java Item.java
 
-Books.class: Books.java
-	$(JCC) $(JFLAGS) Books.java
+Backpack: Backpack.java Item.java Books.java Key.java
+	$(JCC) $(JFLAGS) Backpack.java Item.java Books.java Key.java
 
-Teacher.class: Teacher.java
-	$(JCC) $(JFLAGS) Teacher.java
+Teacher: Teacher.java Creature.java Course.java Avatar.java Backpack.java Item.java Books.java
+	$(JCC) $(JFLAGS) Teacher.java Creature.java Course.java Avatar.java Backpack.java Item.java Books.java
 
-Student.class: Student.java
-	$(JCC) $(JFLAGS) Student.java
+Student: Student.java Creature.java Backpack.java Course.java Books.java Avatar.java
+	$(JCC) $(JFLAGS) Student.java Creature.java Backpack.java Course.java Books.java Avatar.java
 
-Avatar.class: Avatar.java
-	$(JCC) $(JFLAGS) Avatar.java
+Avatar: Avatar.java Backpack.java Course.java
+	$(JCC) $(JFLAGS) Avatar.java Backpack.java Course.java
 
-Course.class: Course.java
+Course: Course.java
 	$(JCC) $(JFLAGS) Course.java
 
-World.class: World.java
+World: World.java
 	$(JCC) $(JFLAGS) World.java
 
-Creature.class: Creature.java
+Creature: Creature.java
 	$(JCC) $(JFLAGS) Creature.java
 
-Main.class: Main.java
+Main: Main.java
 	$(JCC) $(JFLAGS) Main.java
-
-CLASSPATH=".:/usr/share/java/junit4.jar"
 
 all:
 	javac -cp $(CLASSPATH) -g *.java
@@ -77,5 +72,4 @@ test: $(TESTFILES)
 clean: 
 	rm -rf *.java~
 	rm -rf *.txt~ 
-	rm -rf *.java# 
 	rm -rf *.class
