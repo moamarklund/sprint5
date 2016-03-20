@@ -1,3 +1,4 @@
+
 import java.util.*;
 /**
  * Represents a room 
@@ -70,6 +71,40 @@ public class Room{
     }
 
     /**
+     * Checks the items in a room
+     * @return A list with the items in the room 
+     **/
+    public ArrayList<Item> getItemsinRoom(){
+	return this.roomItems;
+    }
+
+    /**
+     * Sets if a door is locked or not
+     * @param lock false if the door is locked, true if it is open
+     **/
+    public void setDoorSouth(Boolean lock){
+	this.doorOpenSouth = lock;
+    }
+    /**
+     * Sets if a door is locked or not
+     * @param lock false if the door is locked, true if it is open
+     **/
+    public void setDoorNorth(Boolean lock){
+	this.doorOpenNorth = lock;
+    } /**
+     * Sets if a door is locked or not
+     * @param lock false if the door is locked, true if it is open
+     **/
+    public void setDoorEast(Boolean lock){
+	this.doorOpenEast = lock;
+    } /**
+     * Sets if a door is locked or not
+     * @param lock false if the door is locked, true if it is open
+     **/
+    public void setDoorWest(Boolean lock){
+	this.doorOpenWest = lock;
+    } 
+    /**
      * Sets a room in a direction to a decided room
      * @param set The room to set to 
      **/
@@ -128,8 +163,39 @@ public class Room{
      **/
     public Room getRoomWest(){ 
 	return this.west; 
-    } 
+    }
+    
+    /**
+     * Checks if a door in a direction is open
+     * @return False if the door is locked otherwise true
+     **/
+    public Boolean getDoorSouth(){
+	return this.doorOpenSouth; 
+    }
+    
+    /**
+     * Checks if a door in a direction is open
+     * @return False if the door is locked otherwise true
+     **/
+    public Boolean getDoorNorth(){
+	return this.doorOpenNorth; 
+    }
 
+     /**
+     * Checks if a door in a direction is open
+     * @return False if the door is locked otherwise true
+     **/
+    public Boolean getDoorWest(){
+	return this.doorOpenWest; 
+    }
+
+     /**
+     * Checks if a door in a direction is open
+     * @return False if the door is locked otherwise true
+     **/
+    public Boolean getDoorEast(){
+	return this.doorOpenEast; 
+    }
     /**
      * Checks the name of a room
      * @return The name of the room 
@@ -181,7 +247,7 @@ public class Room{
 		hola[i] = "The door is open to room: " + rooms[i].name;
 	    } 
 	    else if (rooms[i] != null && !doors[i]){ 
-		hola[i] = "The door is closed to room: " + rooms[i].name;
+		hola[i] = "The door is locked to room: " + rooms[i].name;
 	    }    
 	}
        
