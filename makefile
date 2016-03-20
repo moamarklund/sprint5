@@ -50,7 +50,7 @@ Main: Main.java
 	$(JCC) $(JFLAGS) Main.java
 
 
-Room.class: Room.java
+Room: Room.java
 	$(JCC) $(JFLAGS) Room.java
 
 CLASSPATH=".:/usr/share/java/junit4.jar"
