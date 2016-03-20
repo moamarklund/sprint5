@@ -237,11 +237,11 @@ public class Main{
     public void printCourses(Avatar a){ 
 	List<Course> fc = a.getFinishedCourses();
 	List<Course> uc = a.getUnfinishedCourses();
-	System.out.println("Finished courses : ");
+	System.out.println("Finished courses: ");
 	for(int i = 0; i < fc.size(); i++){ 
 	    System.out.println(fc.get(i)); 
 	} 
-	System.out.println("Unfinished courses : "); 
+	System.out.println("Unfinished courses: "); 
 	for(int j = 0; j < uc.size(); j++){ 
 	    System.out.println(uc.get(j)); 
 	} 
