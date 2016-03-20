@@ -42,7 +42,7 @@ public class Backpack {
     }
 
     public Item getFirstObjectList(){
-	return this.objectlist.get(1);
+	return this.objectlist.get(0);
     }
     
     /**

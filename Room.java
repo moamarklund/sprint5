@@ -1,3 +1,4 @@
+
 import java.util.*;
 /**
  * Represents a room 
@@ -246,7 +247,7 @@ public class Room{
 		hola[i] = "The door is open to room: " + rooms[i].name;
 	    } 
 	    else if (rooms[i] != null && !doors[i]){ 
-		hola[i] = "The door is closed to room: " + rooms[i].name;
+		hola[i] = "The door is locked to room: " + rooms[i].name;
 	    }    
 	}
        
