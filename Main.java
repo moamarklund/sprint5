@@ -23,7 +23,13 @@ public class Main{
 	    //System.out.println(input);
 	    //go väderstreck - uppdatera currentRoom 
 	    if(input.equals("go north")){ 
-		    if(currentRoom.getRoomNorth() != null){ 
+		    if(currentRoom.getRoomNorth() != null){
+			if(currentRoom.getRoomNorth().getDoorNorth() != false){
+			//kolla nycklar o shit
+			    currentRoom = currentRoom.getRoomNorth(); }
+			else {
+			    System.out.println("The door is locked");
+			}
 			//kolla nycklar o shit
 			currentRoom = currentRoom.getRoomNorth(); 
 		    } 
@@ -32,9 +38,13 @@ public class Main{
 		    } 
 		}
 	    else if(input.equals("go south")){ 
-		    if(currentRoom.getRoomSouth() != null){ 
+		    if(currentRoom.getRoomSouth() != null){
+			if(currentRoom.getRoomSouth().getDoorSouth() != false){
 			//kolla nycklar o shit
-			currentRoom = currentRoom.getRoomSouth(); 
+			    currentRoom = currentRoom.getRoomSouth(); }
+			else {
+			    System.out.println("The door is locked");
+			}
 		    } 
 		    else { 
 			System.out.println("There is no room in the south direction");
@@ -42,8 +52,12 @@ public class Main{
 		}
 	    else if(input.equals("go east")){ 
 		    if(currentRoom.getRoomEast() != null){ 
+			if(currentRoom.getRoomEast().getDoorEast() != false){
 			//kolla nycklar o shit
-			currentRoom = currentRoom.getRoomEast(); 
+			    currentRoom = currentRoom.getRoomEast(); }
+			else {
+			    System.out.println("The door is locked");
+			}
 		    } 
 		    else { 
 			System.out.println("There is no room in the east direction");
@@ -51,13 +65,66 @@ public class Main{
 	    } 
 	    else if(input.equals("go west")){ 
 		    if(currentRoom.getRoomWest() != null){ 
+			if(currentRoom.getRoomWest().getDoorWest() != false){
 			//kolla nycklar o shit
-			currentRoom = currentRoom.getRoomWest(); 
+			    currentRoom = currentRoom.getRoomWest(); }
+			else {
+			    System.out.println("The door is locked");
+			}
 		    } 
 		    else { 
 			System.out.println("There is no room in the west direction");
 		    } 
 	    }
+	    /*
+	    else if(input.equals("use key with south")){
+		    Room room = currentRoom.getRoomSouth();
+		    if(room != null){
+			if(room.getDoorSouth() == false){
+			    if(a.getBackpack().getTotalObjects() != 0){
+				Item key = a.getBackpack().getFirstObjectList();
+				a.getBackpack().drop(key);
+				room.setDoorSouth(true);
+			    }
+			    else{
+				System.out.println("You don´t have any keys to use");
+			    }
+			 
+			}
+			else{
+			    System.out.println("The door is already open");
+			}
+		    }
+		    else{
+			System.out.println("There is no room in the south direction");
+		    }
+		       
+		}
+
+	      else if(input.equals("use key with east")){
+		    Room room = currentRoom.getRoomEast();
+		    if(room != null){
+			if(room.getDoorEast() == false){
+			    if(a.getBackpack().getTotalObjects() != 0){
+				Item key = a.getBackpack().getFirstObjectList();
+				a.getBackpack().drop(key);
+				room.setDoorEast(true);
+			    }
+			    else{
+				System.out.println("You don´t have any keys to use");
+			    }
+			 
+			}
+			else{
+			    System.out.println("The door is already open");
+			}
+		    }
+		    else{
+			System.out.println("There is no room in the east direction");
+		    }
+		       
+		}
+	    */
 	    //inventory
 	    else if(input.equals("inventory")){
 		Backpack b = a.getBackpack();
@@ -90,11 +157,16 @@ public class Main{
 		} 
 	    } 
 	    //plocka upp saker 
-	    else if(input.length() >= 7){
-		if(input.substring(0,7) == "pick up"){ 
-		    String itemName = input.substring(7,input.length());
-		    System.out.println("not implemented yet"); 
-		}
+	    else if(input.equals("pick up")){
+		ArrayList<Item> Items = currentRoom.getItemsinRoom();
+		    if(Items != null){
+			Item key = Items.get(1);
+			a.getBackpack().pack(key);
+		    }
+		    else{
+			System.out.println("Det finns inga nycklar i det här rummet");
+		    }
+			 
 	    } 
 	    else if(input.length() >= 6){
 		if(input.substring(0,6).equals("enroll")){

@@ -40,6 +40,10 @@ public class Backpack {
     public int getTotalObjects(){
 	return this.totalObjects; 
     }
+
+    public Item getFirstObjectList(){
+	return this.objectlist.get(1);
+    }
     
     /**
      *The function adds item to the backpack
@@ -51,6 +55,7 @@ public class Backpack {
 	}
 	else{
 	    //  if(this.objectlist != null){
+
 	    int i = (weight += item.getWeight());
 	    if(i < 10){
 		objectlist.add(item); 
@@ -135,5 +140,5 @@ public class Backpack {
 	  System.out.println("==================");
     } 
 }
-    
-}
+
+
