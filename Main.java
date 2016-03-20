@@ -19,11 +19,17 @@ public class Main{
 	    System.out.println("=============== PollaxMUD ================");
 	    System.out.println(currentRoom);
 	    //kommandon - inläsning från användaren: 
-	    String input = m.readInput("go north","go south","go east","go west","inventory","pick up","drop","check courses","talk","trade","graduate","enroll"); 
+	    String input = m.readInput("go north","go south","go east","go west","inventory","pick up","drop","check courses","talk","trade","graduate","enroll", "unlock south", "unlock west", "unlock east", "unlock north" ); 
 	    //System.out.println(input);
 	    //go väderstreck - uppdatera currentRoom 
 	    if(input.equals("go north")){ 
-		    if(currentRoom.getRoomNorth() != null){ 
+		    if(currentRoom.getRoomNorth() != null){
+			if(currentRoom.getRoomNorth().getDoorNorth() != false){
+			//kolla nycklar o shit
+			    currentRoom = currentRoom.getRoomNorth(); }
+			else {
+			    System.out.println("The door is locked");
+			}
 			//kolla nycklar o shit
 			currentRoom = currentRoom.getRoomNorth(); 
 		    } 
@@ -32,9 +38,13 @@ public class Main{
 		    } 
 		}
 	    else if(input.equals("go south")){ 
-		    if(currentRoom.getRoomSouth() != null){ 
+		    if(currentRoom.getRoomSouth() != null){
+			if(currentRoom.getRoomSouth().getDoorSouth() != false){
 			//kolla nycklar o shit
-			currentRoom = currentRoom.getRoomSouth(); 
+			    currentRoom = currentRoom.getRoomSouth(); }
+			else {
+			    System.out.println("The door is locked");
+			}
 		    } 
 		    else { 
 			System.out.println("There is no room in the south direction");
@@ -42,8 +52,12 @@ public class Main{
 		}
 	    else if(input.equals("go east")){ 
 		    if(currentRoom.getRoomEast() != null){ 
+			if(currentRoom.getRoomEast().getDoorEast() != false){
 			//kolla nycklar o shit
-			currentRoom = currentRoom.getRoomEast(); 
+			    currentRoom = currentRoom.getRoomEast(); }
+			else {
+			    System.out.println("The door is locked");
+			}
 		    } 
 		    else { 
 			System.out.println("There is no room in the east direction");
@@ -51,13 +65,113 @@ public class Main{
 	    } 
 	    else if(input.equals("go west")){ 
 		    if(currentRoom.getRoomWest() != null){ 
+			if(currentRoom.getRoomWest().getDoorWest() != false){
 			//kolla nycklar o shit
-			currentRoom = currentRoom.getRoomWest(); 
+			    currentRoom = currentRoom.getRoomWest(); }
+			else {
+			    System.out.println("The door is locked");
+			}
 		    } 
 		    else { 
 			System.out.println("There is no room in the west direction");
 		    } 
 	    }
+	
+	    else if(input.equals("unlock south")){
+		    Room room = currentRoom.getRoomSouth();
+		    if(room != null){
+			if(room.getDoorSouth() == false){
+			    if(a.getBackpack().getTotalObjects() != 0){
+				Item key = a.getBackpack().getFirstObjectList();
+				a.getBackpack().drop(key);
+				room.setDoorSouth(true);
+			    }
+			    else{
+				System.out.println("You don´t have any keys to use");
+			    }
+			 
+			}
+			else{
+			    System.out.println("The door is already open");
+			}
+		    }
+		    else{
+			System.out.println("There is no room in the south direction");
+		    }
+		       
+		}
+
+	      else if(input.equals("unlock east")){
+		    Room room = currentRoom.getRoomEast();
+		    if(room != null){
+			if(room.getDoorEast() == false){
+			    if(a.getBackpack().getTotalObjects() != 0){
+				Item key = a.getBackpack().getFirstObjectList();
+				a.getBackpack().drop(key);
+				room.setDoorEast(true);
+			    }
+			    else{
+				System.out.println("You don´t have any keys to use");
+			    }
+			 
+			}
+			else{
+			    System.out.println("The door is already open");
+			}
+		    }
+		    else{
+			System.out.println("There is no room in the east direction");
+		    }
+		       
+		}
+	       else if(input.equals("unlock west")){
+		    Room room = currentRoom.getRoomWest();
+		    if(room != null){
+			if(room.getDoorWest() == false){
+			    if(a.getBackpack().getTotalObjects() != 0){
+				Item key = a.getBackpack().getFirstObjectList();
+				a.getBackpack().drop(key);
+				room.setDoorWest(true);
+			    }
+			    else{
+				System.out.println("You don´t have any keys to use");
+			    }
+			 
+			}
+			else{
+			    System.out.println("The door is already open");
+			}
+		    }
+		    else{
+			System.out.println("There is no room in the east direction");
+		    }
+		       
+		}
+
+	       else if(input.equals("unlock north")){
+		    Room room = currentRoom.getRoomNorth();
+		    if(room != null){
+			if(room.getDoorNorth() == false){
+			    if(a.getBackpack().getTotalObjects() != 0){
+				Item key = a.getBackpack().getFirstObjectList();
+				a.getBackpack().drop(key);
+				room.setDoorNorth(true);
+			    }
+			    else{
+				System.out.println("You don´t have any keys to use");
+			    }
+			 
+			}
+			else{
+			    System.out.println("The door is already open");
+			}
+		    }
+		    else{
+			System.out.println("There is no room in the east direction");
+		    }
+		       
+		}
+	    
 	    //inventory
 	    else if(input.equals("inventory")){
 		Backpack b = a.getBackpack();
@@ -90,11 +204,17 @@ public class Main{
 		} 
 	    } 
 	    //plocka upp saker 
-	    else if(input.length() >= 7){
-		if(input.substring(0,7) == "pick up"){ 
-		    String itemName = input.substring(7,input.length());
-		    System.out.println("not implemented yet"); 
+	    else if(input.equals("pick up")){
+		ArrayList<Item> Items = currentRoom.getItemsinRoom();
+		if(Items.size() != 0){
+			Item key = Items.get(0);
+			a.getBackpack().pack(key);
+			Items.remove(key);
+		    }
+		else{
+		    System.out.println("Det finns inga nycklar i det här rummet");
 		}
+		
 	    } 
 	    else if(input.length() >= 6){
 		if(input.substring(0,6).equals("enroll")){
@@ -117,17 +237,17 @@ public class Main{
     public void printCourses(Avatar a){ 
 	List<Course> fc = a.getFinishedCourses();
 	List<Course> uc = a.getUnfinishedCourses();
-	System.out.println("Finished courses : ");
+	System.out.println("Finished courses: ");
 	for(int i = 0; i < fc.size(); i++){ 
 	    System.out.println(fc.get(i)); 
 	} 
-	System.out.println("Unfinished courses : "); 
+	System.out.println("Unfinished courses: "); 
 	for(int j = 0; j < uc.size(); j++){ 
 	    System.out.println(uc.get(j)); 
 	} 
     }
 
-    public String readInput(String gn, String gs, String ge, String gw, String i, String pu, String d, String cc, String ta, String tr, String gr, String e){ 
+    public String readInput(String gn, String gs, String ge, String gw, String i, String pu, String d, String cc, String ta, String tr, String gr, String e, String s, String w, String ea, String n){ 
 	String answer = "";
 	while(true){ 
 	    Scanner sc = new Scanner(System.in);
@@ -135,6 +255,8 @@ public class Main{
 	    boolean breakLoop = false;
 	    if((answer.equals(gn)) || (answer.equals(gs)) || (answer.equals(ge)) || (answer.equals(gw)) || (answer.equals(i)) || (answer.equals(cc)) || answer.equals(gr)) { 
 		breakLoop = true;
+	    }
+	    if((answer.equals(ea)) || (answer.equals(w)) || (answer.equals(n)) || (answer.equals(s))) { breakLoop = true;   
 	    }
 	    if(answer.length() >= 4){ 
 		if(((answer.substring(0,4)).equals(d)) || ((answer.substring(0,4)).equals(ta))) breakLoop = true;
@@ -147,9 +269,10 @@ public class Main{
 	    } 
 	    if(answer.length() >= 7){
 		if((answer.substring(0,7)).equals(pu)) breakLoop = true; 
-	    } 
+	    }
+	    
 	    if(breakLoop == true) break;
-	    else System.out.println("Valid inputs are : " + gn + " " + gs + " " + ge + " " + gw+ " "  + i + " " + pu + " "  + d + " "  + cc + " "  + ta+  " "  + tr + " "  + gr + " " + e);    
+	    else System.out.println("Valid inputs are : " + gn + " " + gs + " " + ge + " " + gw+ " "  + i + " " + pu + " "  + d + " "  + cc + " "  + ta+  " "  + tr + " "  + gr + " " + e + " " + s + " " + w + " "+ ea + " " + n);    
 	} 
 	return answer; 
     }
